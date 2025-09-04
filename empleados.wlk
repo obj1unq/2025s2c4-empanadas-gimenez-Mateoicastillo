@@ -1,37 +1,67 @@
 
-object Gimenez {
-    var fondo = 300000 
+object gimenez {
+    var property fondo = 300000 
 
     method pagarSueldo(empleado) {
-        fondo = fondo - empleado.sueldoAPagar()
-    }
-
-    method saldoRestante() {
-        return fondo
+        empleado.registrarCobro()
+        fondo -= empleado.sueldo()
     }
 }
 
-object Galvan {
-    var sueldo = 15000
+object galvan {
+
+    var property sueldo = 15000
+    var saldo = 0
 
     method cambiarSueldo(nuevoSueldo) {
         sueldo = nuevoSueldo
     }
 
-    method sueldoAPagar() {
-        return sueldo
+    method deuda(){
+        if(saldo < 0){
+            return (saldo).abs()
+        }else{
+            return 0
+        }
     }
+
+    method registrarCobro() {
+        saldo += sueldo
+    }
+
+    method dinero() {
+        if(saldo > 0){
+            return saldo
+        }else{
+            return 0
+        }
+    }
+
+    method gastar(cantidad) {
+        saldo -= cantidad
+    }
+
 }
 
-object Baigorria {
+object baigorria {
+
+    const precioEmpanadas = 15
     var ventas = 0
+    var sueldosCobrados = 0
+    var property sueldo = 0
 
-    method empanadasVendidas(cantidad){
-        ventas = ventas + cantidad
+    method empanadasVendidas(cantidad) {
+      ventas = 0
+      ventas += cantidad
+      sueldo += (precioEmpanadas * ventas)
     }
 
-    method sueldoAPagar(){
-        return ventas * 15
+    method registrarCobro(){
+        sueldosCobrados += sueldo
+        sueldo = 0
     }
+
+    method totalCobrado() = sueldosCobrados
+      
 }
 
